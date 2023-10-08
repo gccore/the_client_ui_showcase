@@ -1,0 +1,135 @@
+---
+# Globally Disabled checks:
+#
+# bugprone-easily-swappable-parameters: This warning is loud with no clear advice on how to fix the potential problem
+# FIXME: bugprone-macro-parentheses: Enable with clang-tidy-14 when NOLINTBEGIN/NOLINTEND are available for code generating macros
+# cert-dcl21-cpp: No reference to this rule exists on Carnegie Mellon's SEI CERT C++ Confluence. And the suggestion is unusual
+# FIXME: misc-non-private-member-variables-in-classes: Audit uses of protected member variables to see if they really need to be protected
+# performance-no-int-to-ptr: This rule flags every pointer to integer cast, which gets quite noisy. Should only be enabled on a case-by-case basis
+# readability-braces-around-statements: Redundant braces around single-line conditions is against project style
+# readability-magic-numbers: This check is very noisy in the codebase.
+# readability-named-parameter: We frequently omit parameter names to work around -Wunused-parameter
+# FIXME: readability-uppercase-literal-suffix: Enable this check, the rationale is solid but the findings are numerous
+# 
+#
+Checks: >
+  -*,
+  bugprone-*,
+  cert-*,
+  concurrency-*,
+  misc-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  cppcoreguidelines-*,
+  -bugprone-easily-swappable-parameters,
+  -bugprone-macro-parentheses,
+  -cert-dcl21-cpp,
+  -misc-non-private-member-variables-in-classes,
+  -performance-no-int-to-ptr,
+  -readability-braces-around-statements,
+  -readability-magic-numbers,
+  -readability-named-parameter,
+  -readability-uppercase-literal-suffix,
+  -readability-use-anyofallof,
+  -readability-avoid-const-params-in-decls,
+
+  -modernize-use-trailing-return-type,
+  -modernize-use-auto,
+  -modernize-return-braced-init-list,
+  -modernize-use-trailing-return-type,
+
+  -cppcoreguidelines-avoid-magic-numbers,
+
+CheckOptions:
+  readability-identifier-length.MinimumVariableNameLength: '3'
+  readability-identifier-length.MinimumParameterNameLength: '3'
+  
+WarningsAsErrors: >
+  bugprone-assert-side-effect,
+  bugprone-assignment-in-if-condition,
+  bugprone-branch-clone,
+  bugprone-dangling-handle,
+  bugprone-fold-init-type,
+  bugprone-infinite-loop,
+  bugprone-move-forwarding-reference,
+  bugprone-redundant-branch-condition,
+  bugprone-shared-ptr-array-mismatch,
+  bugprone-spuriously-wake-up-functions,
+  bugprone-throw-keyword-missing,
+  bugprone-too-small-loop-variable,
+  bugprone-unchecked-optional-access,
+
+  cert-dcl21-cpp,
+  cert-dcl58-cpp,
+  cert-err33-c,
+  cert-err34-c,
+  cert-err52-cpp,
+  cert-err58-cpp,
+  cert-flp30-c,
+  cert-mem57-cpp,
+  cert-oop57-cpp,
+  cert-oop58-cpp,
+
+  concurrency-mt-unsafe,
+  concurrency-thread-canceltype-asynchronous,
+
+  cppcoreguidelines-avoid-goto,
+  cppcoreguidelines-interfaces-global-init,
+  cppcoreguidelines-macro-usage,
+  cppcoreguidelines-narrowing-conversions,
+  cppcoreguidelines-slicing,
+  cppcoreguidelines-virtual-class-destructor,
+
+  google-explicit-constructor,
+  google-readability-todo,
+
+  hicpp-exception-baseclass,
+  hicpp-multiway-paths-covered,
+  hicpp-signed-bitwise,
+
+  misc-misleading-identifier,
+  misc-redundant-expression,
+  misc-uniqueptr-reset-release,
+
+  modernize-avoid-c-arrays,
+  modernize-deprecated-headers,
+  modernize-deprecated-ios-base-aliases,
+  modernize-macro-to-enum,
+  modernize-make-shared,
+  modernize-raw-string-literal,
+  modernize-redundant-void-arg,
+  modernize-replace-auto-ptr,
+  modernize-shrink-to-fit,
+  modernize-use-emplace,
+  modernize-use-nullptr,
+  modernize-use-override,
+  modernize-use-using,
+
+  performance-faster-string-find,
+  performance-for-range-copy,
+  performance-inefficient-algorithm,
+  performance-inefficient-string-concatenation,
+  performance-inefficient-vector-operation,
+  performance-move-const-arg,
+  performance-no-automatic-move,
+  performance-type-promotion-in-math-fn,
+  performance-unnecessary-copy-initialization,
+
+  readability-container-contains,
+  readability-container-data-pointer,
+  readability-container-size-empty,
+  readability-duplicate-include,
+  readability-identifier-length,
+  readability-inconsistent-declaration-parameter-name,
+  readability-redundant-access-specifiers,
+  readability-redundant-control-flow,
+  readability-redundant-smartptr-get,
+  readability-redundant-string-init,
+  readability-simplify-boolean-expr,
+  readability-static-accessed-through-instance,
+  readability-uniqueptr-delete-release,
+  readability-use-anyofallof,
+
+FormatStyle: google
+...
