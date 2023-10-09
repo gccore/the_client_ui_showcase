@@ -20,9 +20,11 @@ find_package(Qt${QT_VERSION_MAJOR}
 
 file(GLOB source_files
   src/*.cc
+  src/compact/*.cc
 )
 file(GLOB header_files
   include/private/${PROJECT_NAME}/*.hh
+  include/private/${PROJECT_NAME}/compact/*.hh
 )
 
 add_executable(${PROJECT_NAME}
