@@ -1,6 +1,8 @@
 #pragma once
 
+#include <QtCore/QEvent>
 #include <QtCore/QPointer>
+#include <QtCore/QVector>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QLayout>
 #include <QtWidgets/QPushButton>
@@ -11,6 +13,9 @@ class ChooseViewWidget : public QWidget {
 
  public:
   ChooseViewWidget(QWidget* const parent = nullptr);
+
+ protected:
+  void closeEvent(QCloseEvent* event) override;
 
  private:
   void generateView();
@@ -24,4 +29,5 @@ class ChooseViewWidget : public QWidget {
   QPointer<QGroupBox> groupbox_ = nullptr;
   QPointer<QVBoxLayout> groupbox_layout_ = nullptr;
   QPointer<QPushButton> compact_button_ = nullptr;
+  QVector<QPointer<QWidget>> sub_windows_;
 };

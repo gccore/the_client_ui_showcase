@@ -1,11 +1,21 @@
 #include <the_client_ui_showcase/choose_view_widget.hh>
 //
+#include <the_client_ui_showcase/compact/compact_mainwindow.hh>
+//
 #include <QtWidgets/QSpacerItem>
 //
 #include <cassert>
 
 ChooseViewWidget::ChooseViewWidget(QWidget* const parent) : QWidget(parent) {
   generateView();
+}
+
+void ChooseViewWidget::closeEvent(QCloseEvent* event) {
+  this->QWidget::closeEvent(event);
+
+  for (QPointer<QWidget> const& widget : sub_windows_) {
+    widget->deleteLater();
+  }
 }
 
 void ChooseViewWidget::generateView() {
@@ -44,4 +54,7 @@ void ChooseViewWidget::generateSpacer() {
       new QSpacerItem(0, 10, QSizePolicy::Expanding, QSizePolicy::Expanding));
 }
 
-void ChooseViewWidget::onCompactButtonClicked() {}
+void ChooseViewWidget::onCompactButtonClicked() {
+  sub_windows_.push_back(new CompactMainWindow);
+  sub_windows_.back()->show();
+}
