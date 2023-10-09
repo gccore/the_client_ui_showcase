@@ -11,8 +11,24 @@ find_package(QT
     Widgets
   REQUIRED
 )
+find_package(Qt${QT_VERSION_MAJOR}
+  COMPONENTS
+    Core
+    Widgets
+  REQUIRED
+)
 
-add_executable(${PROJECT_NAME} main.cc)
+file(GLOB source_files
+  src/*.cc
+)
+file(GLOB header_files
+  include/private/${PROJECT_NAME}/*.hh
+)
+
+add_executable(${PROJECT_NAME}
+  ${source_files}
+  ${header_files}
+)
 target_include_directories(${PROJECT_NAME}
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include/private/
