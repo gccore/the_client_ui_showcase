@@ -18,6 +18,9 @@ class CompactMainWindow : public QWidget {
   void generateTreeWidget();
   void generateMainView();
 
+  void configureSamples();
+  void configureTreeWidgetSamples();
+
   QPointer<QSplitter> splitter_ = nullptr;
   QPointer<QTreeWidget> tree_widget_ = nullptr;
   QPointer<QTreeWidget> main_view_ = nullptr;
