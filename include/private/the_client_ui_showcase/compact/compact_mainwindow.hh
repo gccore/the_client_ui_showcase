@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QtCore/QPointer>
+#include <QtWidgets/QMdiArea>
 #include <QtWidgets/QSplitter>
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QWidget>
@@ -21,7 +21,7 @@ class CompactMainWindow : public QWidget {
   void configureSamples();
   void configureTreeWidgetSamples();
 
-  QPointer<QSplitter> splitter_ = nullptr;
-  QPointer<QTreeWidget> tree_widget_ = nullptr;
-  QPointer<QTreeWidget> main_view_ = nullptr;
+  QSplitter* splitter_ = nullptr;
+  QTreeWidget* tree_widget_ = nullptr;
+  QMdiArea* main_view_ = nullptr;
 };

@@ -18,7 +18,7 @@ void CompactMainWindow::generateView() {
   generateMainView();
 }
 void CompactMainWindow::generateLayout() {
-  QPointer<QVBoxLayout> const layout = new QVBoxLayout;
+  QVBoxLayout* const layout = new QVBoxLayout;
   this->QWidget::setLayout(layout);
 }
 void CompactMainWindow::generateSplitter() {
@@ -31,15 +31,15 @@ void CompactMainWindow::generateTreeWidget() {
   assert(splitter_ != nullptr);
 
   tree_widget_ = new QTreeWidget;
+  tree_widget_->setMaximumWidth(200);
+  tree_widget_->setMinimumWidth(200);
   splitter_->addWidget(tree_widget_);
-  splitter_->setStretchFactor(0, 45);
 }
 void CompactMainWindow::generateMainView() {
   assert(splitter_ != nullptr);
 
-  main_view_ = new QTreeWidget;
+  main_view_ = new QMdiArea;
   splitter_->addWidget(main_view_);
-  splitter_->setStretchFactor(1, 100);
 }
 
 void CompactMainWindow::configureSamples() { configureTreeWidgetSamples(); }
