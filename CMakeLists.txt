@@ -7,12 +7,14 @@ find_package(Threads REQUIRED)
 find_package(QT
   NAMES Qt6 Qt5
   COMPONENTS
+    Gui
     Core
     Widgets
   REQUIRED
 )
 find_package(Qt${QT_VERSION_MAJOR}
   COMPONENTS
+    Gui
     Core
     Widgets
   REQUIRED
@@ -21,6 +23,7 @@ find_package(Qt${QT_VERSION_MAJOR}
 file(GLOB source_files
   src/*.cc
   src/compact/*.cc
+  asset/*.qrc
 )
 file(GLOB header_files
   include/private/${PROJECT_NAME}/*.hh
@@ -39,6 +42,7 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
     Threads::Threads
 
+    Qt${QT_VERSION_MAJOR}::Gui
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Widgets
 )

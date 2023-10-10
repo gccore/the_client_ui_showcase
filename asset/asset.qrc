@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>available.svg</file>
+        <file>unavailable.svg</file>
+    </qresource>
+</RCC>
