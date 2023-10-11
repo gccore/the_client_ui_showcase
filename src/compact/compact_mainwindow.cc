@@ -18,7 +18,7 @@ void CompactMainWindow::generateView() {
   generateMainView();
 }
 void CompactMainWindow::generateLayout() {
-  QVBoxLayout* const layout = new QVBoxLayout;
+  auto* const layout = new QVBoxLayout;
   this->QWidget::setLayout(layout);
 }
 void CompactMainWindow::generateSplitter() {
