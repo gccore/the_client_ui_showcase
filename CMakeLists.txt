@@ -30,6 +30,8 @@ file(GLOB header_files
   include/private/${PROJECT_NAME}/compact/*.hh
 )
 
+add_subdirectory(third_party/QCustomPlot)
+
 add_executable(${PROJECT_NAME}
   ${source_files}
   ${header_files}
@@ -45,6 +47,8 @@ target_link_libraries(${PROJECT_NAME}
     Qt${QT_VERSION_MAJOR}::Gui
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Widgets
+
+    QCustomPlot::QCustomPlot
 )
 set_target_properties(${PROJECT_NAME}
   PROPERTIES
