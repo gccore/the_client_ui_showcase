@@ -16,6 +16,9 @@ class CompactMainWindow : public QWidget {
   enum RoleKinds {
     RK_Available = Qt::UserRole + 1,
   };
+  enum ColumnKinds {
+    CK_First = 0,
+  };
 
   void generateView();
   void generateLayout();

@@ -2,12 +2,12 @@
 //
 #include <the_client_ui_showcase/sample_widget/plot.hh>
 //
-#include <QtCore/QList>
 #include <QtCore/QRandomGenerator>
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
 #include <QtWidgets/QLayout>
 #include <QtWidgets/QMdiSubWindow>
+#include <QtWidgets/QMessageBox>
 #include <QtWidgets/QTreeWidgetItem>
 //
 #include <cassert>
@@ -105,22 +105,22 @@ void CompactMainWindow::configureTreeWidgetSamples() {
     samavat_1->setText(0, "Platform 1");
     samavat_1->setIcon(0, available_icon);
     samavat_1->setToolTip(0, "Available");
-    samavat_1->setData(0, RK_Available, QVariant(true));
+    samavat_1->setData(CK_First, RK_Available, QVariant(true));
 
     samavat_2->setText(0, "Platform 2");
     samavat_2->setIcon(0, unavailable_icon);
     samavat_2->setToolTip(0, "Unavailable");
-    samavat_2->setData(0, RK_Available, QVariant(false));
+    samavat_2->setData(CK_First, RK_Available, QVariant(false));
 
     samavat_3->setText(0, "Platform 3");
     samavat_3->setIcon(0, unavailable_icon);
     samavat_3->setToolTip(0, "Unavailable");
-    samavat_3->setData(0, RK_Available, QVariant(false));
+    samavat_3->setData(CK_First, RK_Available, QVariant(false));
 
     samavat_4->setText(0, "Platform 4");
     samavat_4->setIcon(0, available_icon);
     samavat_4->setToolTip(0, "Available");
-    samavat_4->setData(0, RK_Available, QVariant(true));
+    samavat_4->setData(CK_First, RK_Available, QVariant(true));
 
     tree_widget_->insertTopLevelItem(tree_widget_->topLevelItemCount(),
                                      samavat);
@@ -128,17 +128,28 @@ void CompactMainWindow::configureTreeWidgetSamples() {
 }
 
 void CompactMainWindow::onItemDoubleClicked(QTreeWidgetItem* item, int column) {
+  (void)column;
   assert(main_view_ != nullptr);
 
-  main_view_->closeAllSubWindows();
-  quint32 const num_of_windows = QRandomGenerator::global()->bounded(1, 5);
+  if (item != nullptr) {
+    QVariant const available = item->data(CK_First, RK_Available);
+    if (available.isValid()) {
+      if (available.toBool()) {
+        main_view_->closeAllSubWindows();
+        quint32 const num_of_windows =
+            QRandomGenerator::global()->bounded(1, 5);
 
-  for (quint32 idx = 0; idx < num_of_windows; ++idx) {
-    auto* const plot = new Plot;
-    plot->setMinimumWidth(QRandomGenerator::global()->bounded(300, 600));
-    plot->setMinimumHeight(200);
-    main_view_->addSubWindow(plot)->show();
+        for (quint32 idx = 0; idx < num_of_windows; ++idx) {
+          auto* const plot = new Plot;
+          plot->setMinimumWidth(QRandomGenerator::global()->bounded(300, 600));
+          plot->setMinimumHeight(200);
+          main_view_->addSubWindow(plot)->show();
+        }
+        main_view_->cascadeSubWindows();
+      } else {
+        QMessageBox::information(this, "Failed To Open",
+                                 "This platform isn't available");
+      }
+    }
   }
-
-  main_view_->cascadeSubWindows();
 }
