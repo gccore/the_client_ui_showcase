@@ -1,7 +1,13 @@
 #include <the_client_ui_showcase/compact/compact_mainwindow.hh>
 //
+#include <the_client_ui_showcase/sample_widget/plot.hh>
+//
+#include <QtCore/QList>
+#include <QtCore/QRandomGenerator>
+#include <QtCore/QVariant>
 #include <QtGui/QIcon>
 #include <QtWidgets/QLayout>
+#include <QtWidgets/QMdiSubWindow>
 #include <QtWidgets/QTreeWidgetItem>
 //
 #include <cassert>
@@ -34,6 +40,9 @@ void CompactMainWindow::generateTreeWidget() {
   tree_widget_->setMaximumWidth(200);
   tree_widget_->setMinimumWidth(200);
   splitter_->addWidget(tree_widget_);
+
+  QObject::connect(tree_widget_, &QTreeWidget::itemDoubleClicked, this,
+                   &CompactMainWindow::onItemDoubleClicked);
 }
 void CompactMainWindow::generateMainView() {
   assert(splitter_ != nullptr);
@@ -66,12 +75,17 @@ void CompactMainWindow::configureTreeWidgetSamples() {
     novin_1->setText(0, "Platform 1");
     novin_1->setIcon(0, available_icon);
     novin_1->setToolTip(0, "Available");
+    novin_1->setData(0, RK_Available, QVariant(true));
+
     novin_2->setText(0, "Platform 2");
     novin_2->setIcon(0, available_icon);
     novin_2->setToolTip(0, "Available");
+    novin_2->setData(0, RK_Available, QVariant(true));
+
     novin_3->setText(0, "Platform 3");
     novin_3->setIcon(0, unavailable_icon);
     novin_3->setToolTip(0, "Unavailable");
+    novin_3->setData(0, RK_Available, QVariant(false));
 
     tree_widget_->insertTopLevelItem(tree_widget_->topLevelItemCount(), novin);
   }
@@ -87,20 +101,44 @@ void CompactMainWindow::configureTreeWidgetSamples() {
     auto const unavailable_icon = QIcon(":/unavailable.svg");
 
     samavat->setText(0, "Samavat");
+
     samavat_1->setText(0, "Platform 1");
     samavat_1->setIcon(0, available_icon);
     samavat_1->setToolTip(0, "Available");
+    samavat_1->setData(0, RK_Available, QVariant(true));
+
     samavat_2->setText(0, "Platform 2");
     samavat_2->setIcon(0, unavailable_icon);
     samavat_2->setToolTip(0, "Unavailable");
+    samavat_2->setData(0, RK_Available, QVariant(false));
+
     samavat_3->setText(0, "Platform 3");
     samavat_3->setIcon(0, unavailable_icon);
     samavat_3->setToolTip(0, "Unavailable");
+    samavat_3->setData(0, RK_Available, QVariant(false));
+
     samavat_4->setText(0, "Platform 4");
     samavat_4->setIcon(0, available_icon);
     samavat_4->setToolTip(0, "Available");
+    samavat_4->setData(0, RK_Available, QVariant(true));
 
     tree_widget_->insertTopLevelItem(tree_widget_->topLevelItemCount(),
                                      samavat);
   }
+}
+
+void CompactMainWindow::onItemDoubleClicked(QTreeWidgetItem* item, int column) {
+  assert(main_view_ != nullptr);
+
+  main_view_->closeAllSubWindows();
+  quint32 const num_of_windows = QRandomGenerator::global()->bounded(1, 5);
+
+  for (quint32 idx = 0; idx < num_of_windows; ++idx) {
+    auto* const plot = new Plot;
+    plot->setMinimumWidth(QRandomGenerator::global()->bounded(300, 600));
+    plot->setMinimumHeight(200);
+    main_view_->addSubWindow(plot)->show();
+  }
+
+  main_view_->cascadeSubWindows();
 }

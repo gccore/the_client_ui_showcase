@@ -9,10 +9,7 @@
 namespace details {
 QColor GenerateRandColor() {
   QRandomGenerator* const random = QRandomGenerator::global();
-  auto red = Qt::GlobalColor(random->bounded(Qt::black, Qt::darkYellow));
-  auto green = Qt::GlobalColor(random->bounded(Qt::black, Qt::darkYellow));
-  auto blue = Qt::GlobalColor(random->bounded(Qt::black, Qt::darkYellow));
-  return QColor(red, green, blue);
+  return QColor(Qt::GlobalColor(random->bounded(Qt::black, Qt::darkYellow)));
 }
 }  // namespace details
 
@@ -31,8 +28,8 @@ void Plot::generatePlot() {
 void Plot::generateGraph() {
   assert(graph_1_ != nullptr && graph_2_ != nullptr);
 
-  graph_1_->setPen(QPen(details::GenerateRandColor()));
-  graph_2_->setPen(QPen(details::GenerateRandColor()));
+  graph_1_->setPen(details::GenerateRandColor());
+  graph_2_->setPen(details::GenerateRandColor());
 }
 void Plot::generateTimeTicker() {
   time_ticker_.reset(new QCPAxisTickerTime);
