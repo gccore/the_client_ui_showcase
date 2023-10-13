@@ -24,10 +24,12 @@ file(GLOB source_files
   src/*.cc
   src/compact/*.cc
   asset/*.qrc
+  src/sample_widget/*.cc
 )
 file(GLOB header_files
   include/private/${PROJECT_NAME}/*.hh
   include/private/${PROJECT_NAME}/compact/*.hh
+  include/private/${PROJECT_NAME}/sample_widget/*.hh
 )
 
 add_subdirectory(third_party/QCustomPlot)
