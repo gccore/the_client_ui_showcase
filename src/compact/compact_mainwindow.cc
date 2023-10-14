@@ -129,22 +129,27 @@ void CompactMainWindow::configureTreeWidgetSamples() {
 
 void CompactMainWindow::onItemDoubleClicked(QTreeWidgetItem* item, int column) {
   (void)column;
-  assert(main_view_ != nullptr);
 
-  if (item != nullptr) {
+  assert(main_view_ != nullptr);
+  assert(tree_widget_ != nullptr);
+
+  static QTreeWidgetItem* previous_selected_item = nullptr;
+
+  if (item != nullptr && item != previous_selected_item) {
     QVariant const available = item->data(CK_First, RK_Available);
+
     if (available.isValid()) {
       if (available.toBool()) {
+        previous_selected_item = item;
         main_view_->closeAllSubWindows();
-        quint32 const num_of_windows =
-            QRandomGenerator::global()->bounded(1, 5);
 
-        for (quint32 idx = 0; idx < num_of_windows; ++idx) {
+        for (int i = 0; i < QRandomGenerator::global()->bounded(1, 5); ++i) {
           auto* const plot = new Plot;
           plot->setMinimumWidth(QRandomGenerator::global()->bounded(300, 600));
           plot->setMinimumHeight(200);
           main_view_->addSubWindow(plot)->show();
         }
+        
         main_view_->cascadeSubWindows();
       } else {
         QMessageBox::information(this, "Failed To Open",
