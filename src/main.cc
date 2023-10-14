@@ -6,6 +6,7 @@ int main(int argc, char** argv) {
   QApplication const app(argc, argv);
 
   ChooseViewWidget mainwindow;
+  mainwindow.setMinimumSize(300, 400);
   mainwindow.show();
 
   QApplication::exec();
