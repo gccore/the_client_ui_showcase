@@ -2,6 +2,7 @@
 //
 #include <the_client_ui_showcase/sample_widget/plot.hh>
 //
+#include <QtCore/QList>
 #include <QtCore/QRandomGenerator>
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
@@ -12,16 +13,25 @@
 //
 #include <cassert>
 
-CompactMainWindow::CompactMainWindow(QWidget* const parent) : QWidget(parent) {
+CompactMainWindow::CompactMainWindow(ModeKinds const mode,
+                                     QWidget* const parent)
+    : QWidget(parent), mode_(mode) {
   generateView();
   configureSamples();
 }
+
+CompactMainWindow::ModeKinds CompactMainWindow::mode() const { return mode_; }
 
 void CompactMainWindow::generateView() {
   generateLayout();
   generateSplitter();
   generateTreeWidget();
   generateMainView();
+
+  if (mode() == MK_Admin) {
+    generateMenuBar();
+    generateUserManagerMenu();
+  }
 }
 void CompactMainWindow::generateLayout() {
   auto* const layout = new QVBoxLayout;
@@ -49,6 +59,26 @@ void CompactMainWindow::generateMainView() {
 
   main_view_ = new QMdiArea;
   splitter_->addWidget(main_view_);
+}
+void CompactMainWindow::generateMenuBar() {
+  assert(mode() == MK_Admin);
+  assert(this->QWidget::layout() != nullptr);
+
+  admin_menubar_ = new QMenuBar;
+  this->QWidget::layout()->setMenuBar(admin_menubar_);
+}
+void CompactMainWindow::generateUserManagerMenu() {
+  assert(mode() == MK_Admin);
+  assert(admin_menubar_ != nullptr);
+
+  user_manager_menu_ = new QMenu("User Manager");
+  user_manager_add_ = new QAction("Add");
+  user_manager_edit_ = new QAction("Edit");
+  user_manager_monitor_ = new QAction("Monitor");
+  user_manager_menu_->addActions(QList<QAction*>{
+      user_manager_add_, user_manager_edit_, user_manager_monitor_});
+
+  admin_menubar_->addMenu(user_manager_menu_);
 }
 
 void CompactMainWindow::configureSamples() { configureTreeWidgetSamples(); }
@@ -149,7 +179,7 @@ void CompactMainWindow::onItemDoubleClicked(QTreeWidgetItem* item, int column) {
           plot->setMinimumHeight(200);
           main_view_->addSubWindow(plot)->show();
         }
-        
+
         main_view_->cascadeSubWindows();
       } else {
         QMessageBox::information(this, "Failed To Open",

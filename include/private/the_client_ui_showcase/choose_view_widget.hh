@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QtCore/QEvent>
-#include <QtCore/QPointer>
 #include <QtCore/QVector>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QLayout>
@@ -21,13 +20,16 @@ class ChooseViewWidget : public QWidget {
   void generateView();
   void generateLayout();
   void generateGroupBox();
-  void generateCompactButton();
+  void generateRegularCompactButton();
+  void generateAdminCompactButton();
   void generateSpacer();
 
-  Q_SLOT void onCompactButtonClicked();
+  Q_SLOT void onRegularCompactButtonClicked();
+  Q_SLOT void onAdminCompactButtonClicked();
 
-  QPointer<QGroupBox> groupbox_ = nullptr;
-  QPointer<QVBoxLayout> groupbox_layout_ = nullptr;
-  QPointer<QPushButton> compact_button_ = nullptr;
-  QVector<QPointer<QWidget>> sub_windows_;
+  QGroupBox* groupbox_ = nullptr;
+  QVBoxLayout* groupbox_layout_ = nullptr;
+  QPushButton* regular_compact_button_ = nullptr;
+  QPushButton* admin_compact_button_ = nullptr;
+  QVector<QWidget*> sub_windows_;
 };
