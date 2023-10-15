@@ -13,7 +13,7 @@ ChooseViewWidget::ChooseViewWidget(QWidget* const parent) : QWidget(parent) {
 void ChooseViewWidget::closeEvent(QCloseEvent* event) {
   this->QWidget::closeEvent(event);
 
-  for (QPointer<QWidget> const& widget : sub_windows_) {
+  for (QWidget* const widget : sub_windows_) {
     widget->deleteLater();
   }
 }
@@ -21,11 +21,12 @@ void ChooseViewWidget::closeEvent(QCloseEvent* event) {
 void ChooseViewWidget::generateView() {
   generateLayout();
   generateGroupBox();
-  generateCompactButton();
+  generateRegularCompactButton();
+  generateAdminCompactButton();
   generateSpacer();
 }
 void ChooseViewWidget::generateLayout() {
-  QPointer<QVBoxLayout> const layout = new QVBoxLayout;
+  QVBoxLayout* const layout = new QVBoxLayout;
   this->QWidget::setLayout(layout);
 }
 void ChooseViewWidget::generateGroupBox() {
@@ -38,14 +39,23 @@ void ChooseViewWidget::generateGroupBox() {
 
   this->QWidget::layout()->addWidget(groupbox_);
 }
-void ChooseViewWidget::generateCompactButton() {
+void ChooseViewWidget::generateRegularCompactButton() {
   assert(groupbox_layout_ != nullptr);
 
-  compact_button_ = new QPushButton("Compact View");
-  groupbox_layout_->addWidget(compact_button_);
+  regular_compact_button_ = new QPushButton("Regular Compact View");
+  groupbox_layout_->addWidget(regular_compact_button_);
 
-  QObject::connect(compact_button_, &QPushButton::clicked, this,
-                   &ChooseViewWidget::onCompactButtonClicked);
+  QObject::connect(regular_compact_button_, &QPushButton::clicked, this,
+                   &ChooseViewWidget::onRegularCompactButtonClicked);
+}
+void ChooseViewWidget::generateAdminCompactButton() {
+  assert(groupbox_layout_ != nullptr);
+
+  admin_compact_button_ = new QPushButton("Admin Compact View");
+  groupbox_layout_->addWidget(admin_compact_button_);
+
+  QObject::connect(admin_compact_button_, &QPushButton::clicked, this,
+                   &ChooseViewWidget::onAdminCompactButtonClicked);
 }
 void ChooseViewWidget::generateSpacer() {
   assert(groupbox_layout_ != nullptr);
@@ -54,7 +64,11 @@ void ChooseViewWidget::generateSpacer() {
       new QSpacerItem(0, 10, QSizePolicy::Expanding, QSizePolicy::Expanding));
 }
 
-void ChooseViewWidget::onCompactButtonClicked() {
-  sub_windows_.push_back(new CompactMainWindow);
+void ChooseViewWidget::onRegularCompactButtonClicked() {
+  sub_windows_.push_back(new CompactMainWindow(CompactMainWindow::MK_Regular));
+  sub_windows_.back()->show();
+}
+void ChooseViewWidget::onAdminCompactButtonClicked() {
+  sub_windows_.push_back(new CompactMainWindow(CompactMainWindow::MK_Admin));
   sub_windows_.back()->show();
 }
