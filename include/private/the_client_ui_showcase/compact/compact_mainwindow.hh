@@ -42,6 +42,9 @@ class CompactMainWindow : public QWidget {
   void configureTreeWidgetSamples();
 
   Q_SLOT void onItemDoubleClicked(QTreeWidgetItem* item, int column);
+  Q_SLOT void onUserManagerAddClicked(bool const checked);
+  Q_SLOT void onUserManagerEditClicked(bool const checked);
+  Q_SLOT void onUserManagerMonitorClicked(bool const checked);
 
   ModeKinds const mode_;
   QSplitter* splitter_ = nullptr;

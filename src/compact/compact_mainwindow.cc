@@ -1,5 +1,6 @@
 #include <the_client_ui_showcase/compact/compact_mainwindow.hh>
 //
+#include <the_client_ui_showcase/compact/user_manager_add.hh>
 #include <the_client_ui_showcase/sample_widget/plot.hh>
 //
 #include <QtCore/QList>
@@ -75,9 +76,16 @@ void CompactMainWindow::generateUserManagerMenu() {
   user_manager_add_ = new QAction("Add");
   user_manager_edit_ = new QAction("Edit");
   user_manager_monitor_ = new QAction("Monitor");
+
+  QObject::connect(user_manager_add_, &QAction::triggered, this,
+                   &CompactMainWindow::onUserManagerAddClicked);
+  QObject::connect(user_manager_edit_, &QAction::triggered, this,
+                   &CompactMainWindow::onUserManagerEditClicked);
+  QObject::connect(user_manager_monitor_, &QAction::triggered, this,
+                   &CompactMainWindow::onUserManagerMonitorClicked);
+
   user_manager_menu_->addActions(QList<QAction*>{
       user_manager_add_, user_manager_edit_, user_manager_monitor_});
-
   admin_menubar_->addMenu(user_manager_menu_);
 }
 
@@ -187,4 +195,14 @@ void CompactMainWindow::onItemDoubleClicked(QTreeWidgetItem* item, int column) {
       }
     }
   }
+}
+void CompactMainWindow::onUserManagerAddClicked(bool const checked) {
+  Q_UNUSED(checked);
+  (new UserManagerAdd)->show();
+}
+void CompactMainWindow::onUserManagerEditClicked(bool const checked) {
+  Q_UNUSED(checked);
+}
+void CompactMainWindow::onUserManagerMonitorClicked(bool const checked) {
+  Q_UNUSED(checked);
 }
