@@ -125,5 +125,11 @@ void UserManagerAdd::generateAcceptButtons() {
   layout()->addLayout(button_layout);
 }
 
-void UserManagerAdd::onAcceptClicked() { is_accepted_ = true; }
-void UserManagerAdd::onRejectClicked() { is_accepted_ = false; }
+void UserManagerAdd::onAcceptClicked() {
+  is_accepted_ = true;
+  close();
+}
+void UserManagerAdd::onRejectClicked() {
+  is_accepted_ = false;
+  close();
+}
