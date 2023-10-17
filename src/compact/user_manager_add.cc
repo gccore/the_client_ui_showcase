@@ -73,6 +73,10 @@ void UserManagerAdd::generateFields() {
   username_ = new QLineEdit;
   password_ = new QLineEdit;
 
+  fullname_->setAlignment(Qt::AlignCenter);
+  username_->setAlignment(Qt::AlignCenter);
+  password_->setAlignment(Qt::AlignCenter);
+
   fields_layout_->addWidget(fullname_label, ::Row<0>, ::Column<0>);
   fields_layout_->addWidget(fullname_, ::Row<0>, ::Column<1>);
 
@@ -98,7 +102,7 @@ void UserManagerAdd::generatePerms() {
   samavat_perm_ = new QCheckBox("Samavat");
   scan_perm_ = new QCheckBox("Scan Tool");
   local_storage_perm_ = new QCheckBox("Local Storage");
-  
+
   perms_layout_->addWidget(novin_perm_, ::Row<0>, ::Column<0>);
   perms_layout_->addWidget(samavat_perm_, ::Row<0>, ::Column<1>);
   perms_layout_->addWidget(scan_perm_, ::Row<1>, ::Column<0>);
