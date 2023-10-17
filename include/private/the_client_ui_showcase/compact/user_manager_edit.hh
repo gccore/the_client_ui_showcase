@@ -14,7 +14,7 @@ class UserManagerEdit : public QWidget {
   UserManagerEdit(QWidget* const parent = nullptr);
 
  private:
-  using LayoutType = QGridLayout;
+  using LayoutType = QHBoxLayout;
   LayoutType* layout() const;
 
   void generateView();

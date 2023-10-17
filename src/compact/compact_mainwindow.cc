@@ -1,6 +1,7 @@
 #include <the_client_ui_showcase/compact/compact_mainwindow.hh>
 //
 #include <the_client_ui_showcase/compact/user_manager_add.hh>
+#include <the_client_ui_showcase/compact/user_manager_edit.hh>
 #include <the_client_ui_showcase/sample_widget/plot.hh>
 //
 #include <QtCore/QList>
@@ -202,6 +203,7 @@ void CompactMainWindow::onUserManagerAddClicked(bool const checked) {
 }
 void CompactMainWindow::onUserManagerEditClicked(bool const checked) {
   Q_UNUSED(checked);
+  (new UserManagerEdit)->show();
 }
 void CompactMainWindow::onUserManagerMonitorClicked(bool const checked) {
   Q_UNUSED(checked);
