@@ -2,6 +2,7 @@
 //
 #include <the_client_ui_showcase/compact/compact_mainwindow.hh>
 //
+#include <QtWidgets/QApplication>
 #include <QtWidgets/QSpacerItem>
 //
 #include <cassert>
@@ -10,13 +11,7 @@ ChooseViewWidget::ChooseViewWidget(QWidget* const parent) : QWidget(parent) {
   generateView();
 }
 
-void ChooseViewWidget::closeEvent(QCloseEvent* event) {
-  this->QWidget::closeEvent(event);
-
-  for (QWidget* const widget : sub_windows_) {
-    widget->deleteLater();
-  }
-}
+void ChooseViewWidget::closeEvent(QCloseEvent* event) { QApplication::quit(); }
 
 void ChooseViewWidget::generateView() {
   generateLayout();
@@ -65,10 +60,8 @@ void ChooseViewWidget::generateSpacer() {
 }
 
 void ChooseViewWidget::onRegularCompactButtonClicked() {
-  sub_windows_.push_back(new CompactMainWindow(CompactMainWindow::MK_Regular));
-  sub_windows_.back()->show();
+  (new CompactMainWindow(CompactMainWindow::MK_Regular))->show();
 }
 void ChooseViewWidget::onAdminCompactButtonClicked() {
-  sub_windows_.push_back(new CompactMainWindow(CompactMainWindow::MK_Admin));
-  sub_windows_.back()->show();
+  (new CompactMainWindow(CompactMainWindow::MK_Admin))->show();
 }

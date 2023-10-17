@@ -31,5 +31,4 @@ class ChooseViewWidget : public QWidget {
   QVBoxLayout* groupbox_layout_ = nullptr;
   QPushButton* regular_compact_button_ = nullptr;
   QPushButton* admin_compact_button_ = nullptr;
-  QVector<QWidget*> sub_windows_;
 };
