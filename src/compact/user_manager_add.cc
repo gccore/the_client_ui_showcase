@@ -76,6 +76,7 @@ void UserManagerAdd::generateFields() {
   fullname_->setAlignment(Qt::AlignCenter);
   username_->setAlignment(Qt::AlignCenter);
   password_->setAlignment(Qt::AlignCenter);
+  password_->setEchoMode(QLineEdit::Password);
 
   fields_layout_->addWidget(fullname_label, ::Row<0>, ::Column<0>);
   fields_layout_->addWidget(fullname_, ::Row<0>, ::Column<1>);
