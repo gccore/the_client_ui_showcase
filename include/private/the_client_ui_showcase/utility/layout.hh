@@ -21,3 +21,8 @@ auto constexpr PackLayoutsToLayout(LayoutsType... layouts) {
                 std::placeholders::_2, 0),
       layouts...);
 }
+
+template <int Value>
+inline int constexpr Column = Value;
+template <int Value>
+inline int constexpr Row = Value;
