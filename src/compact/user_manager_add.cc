@@ -25,6 +25,23 @@ QString UserManagerAdd::password() const {
 
 bool UserManagerAdd::isAccepted() const { return is_accepted_; }
 
+bool UserManagerAdd::hasNovinPermission() const {
+  assert(novin_perm_ != nullptr);
+  return novin_perm_->isChecked();
+}
+bool UserManagerAdd::hasSamavatPermission() const {
+  assert(samavat_perm_ != nullptr);
+  return samavat_perm_->isChecked();
+}
+bool UserManagerAdd::hasScanPermission() const {
+  assert(scan_perm_ != nullptr);
+  return scan_perm_->isChecked();
+}
+bool UserManagerAdd::hasLocalStoragePermission() const {
+  assert(local_storage_perm_ != nullptr);
+  return local_storage_perm_->isChecked();
+}
+
 UserManagerAdd::LayoutType* UserManagerAdd::layout() const {
   assert(this->QWidget::layout() != nullptr);
   return qobject_cast<LayoutType*>(this->QWidget::layout());
@@ -34,6 +51,8 @@ void UserManagerAdd::generateView() {
   generateLayout();
   generateFieldsLayout();
   generateFields();
+  generatePermsLayout();
+  generatePerms();
   generateAcceptButtons();
 }
 void UserManagerAdd::generateLayout() {
@@ -62,6 +81,28 @@ void UserManagerAdd::generateFields() {
 
   fields_layout_->addWidget(password_label, ::Row<2>, ::Column<0>);
   fields_layout_->addWidget(password_, ::Row<2>, ::Column<1>);
+}
+void UserManagerAdd::generatePermsLayout() {
+  perms_layout_ = new QGridLayout;
+  auto* const group_box = new QGroupBox;
+
+  group_box->setTitle("Permissions: ");
+  group_box->setLayout(perms_layout_);
+
+  layout()->addWidget(group_box);
+}
+void UserManagerAdd::generatePerms() {
+  assert(perms_layout_ != nullptr);
+
+  novin_perm_ = new QCheckBox("Novin");
+  samavat_perm_ = new QCheckBox("Samavat");
+  scan_perm_ = new QCheckBox("Scan Tool");
+  local_storage_perm_ = new QCheckBox("Local Storage");
+  
+  perms_layout_->addWidget(novin_perm_, ::Row<0>, ::Column<0>);
+  perms_layout_->addWidget(samavat_perm_, ::Row<0>, ::Column<1>);
+  perms_layout_->addWidget(scan_perm_, ::Row<1>, ::Column<0>);
+  perms_layout_->addWidget(local_storage_perm_, ::Row<1>, ::Column<1>);
 }
 void UserManagerAdd::generateAcceptButtons() {
   accept_ = new QPushButton("Accept");
