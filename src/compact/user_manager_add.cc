@@ -10,6 +10,12 @@ UserManagerAdd::UserManagerAdd(QWidget* const parent) : QWidget(parent) {
   generateView();
 }
 
+void UserManagerAdd::setAcceptButtonsVisibility(bool const visible) {
+  assert(accept_ != nullptr && reject_ != nullptr);
+  accept_->setVisible(visible);
+  reject_->setVisible(visible);
+}
+
 QString UserManagerAdd::fullname() const {
   assert(fullname_ != nullptr);
   return fullname_->text();
