@@ -17,6 +17,7 @@ class UserManagerAdd : public QWidget {
   UserManagerAdd(QWidget* const parent = nullptr);
 
   void setAcceptButtonsVisibility(bool const visible);
+  void setUsernameEnabled(bool const enabled);
 
   QString fullname() const;
   QString username() const;

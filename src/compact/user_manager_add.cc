@@ -15,6 +15,10 @@ void UserManagerAdd::setAcceptButtonsVisibility(bool const visible) {
   accept_->setVisible(visible);
   reject_->setVisible(visible);
 }
+void UserManagerAdd::setUsernameEnabled(bool const enabled) {
+  assert(username_ != nullptr);
+  username_->setEnabled(enabled);
+}
 
 QString UserManagerAdd::fullname() const {
   assert(fullname_ != nullptr);
