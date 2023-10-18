@@ -46,13 +46,11 @@ class UserManagerAdd : public QWidget {
   Q_SLOT void onRejectClicked();
 
   QGridLayout* fields_layout_ = nullptr;
-
   QLineEdit* fullname_ = nullptr;
   QLineEdit* username_ = nullptr;
   QLineEdit* password_ = nullptr;
 
   QGridLayout* perms_layout_ = nullptr;
-
   QCheckBox* novin_perm_ = nullptr;
   QCheckBox* samavat_perm_ = nullptr;
   QCheckBox* scan_perm_ = nullptr;
