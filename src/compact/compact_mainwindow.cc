@@ -74,14 +74,11 @@ void CompactMainWindow::generateUserManagerMenu() {
   assert(admin_menubar_ != nullptr);
 
   user_manager_menu_ = new QMenu("User Manager");
-  user_manager_add_ = new QAction("Add");
-  user_manager_edit_ = new QAction("Edit");
+  user_manager_config_ = new QAction("Config");
   user_manager_monitor_ = new QAction("Monitor");
 
-  QObject::connect(user_manager_add_, &QAction::triggered, this,
-                   &CompactMainWindow::onUserManagerAddClicked);
-  QObject::connect(user_manager_edit_, &QAction::triggered, this,
-                   &CompactMainWindow::onUserManagerEditClicked);
+  QObject::connect(user_manager_config_, &QAction::triggered, this,
+                   &CompactMainWindow::onUserManagerConfigClicked);
   QObject::connect(user_manager_monitor_, &QAction::triggered, this,
                    &CompactMainWindow::onUserManagerMonitorClicked);
 
@@ -197,13 +194,9 @@ void CompactMainWindow::onItemDoubleClicked(QTreeWidgetItem* item, int column) {
     }
   }
 }
-void CompactMainWindow::onUserManagerAddClicked(bool const checked) {
+void CompactMainWindow::onUserManagerConfigClicked(bool const checked) {
   Q_UNUSED(checked);
-  (new UserManagerAdd)->show();
-}
-void CompactMainWindow::onUserManagerEditClicked(bool const checked) {
-  Q_UNUSED(checked);
-  (new UserManagerEdit)->show();
+  (new UserManagerConfig)->show();
 }
 void CompactMainWindow::onUserManagerMonitorClicked(bool const checked) {
   Q_UNUSED(checked);

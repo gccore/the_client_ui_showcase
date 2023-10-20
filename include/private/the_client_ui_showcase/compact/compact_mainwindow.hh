@@ -42,8 +42,7 @@ class CompactMainWindow : public QWidget {
   void configureTreeWidgetSamples();
 
   Q_SLOT void onItemDoubleClicked(QTreeWidgetItem* item, int column);
-  Q_SLOT void onUserManagerAddClicked(bool const checked);
-  Q_SLOT void onUserManagerEditClicked(bool const checked);
+  Q_SLOT void onUserManagerConfigClicked(bool const checked);
   Q_SLOT void onUserManagerMonitorClicked(bool const checked);
 
   ModeKinds const mode_;
@@ -52,7 +51,6 @@ class CompactMainWindow : public QWidget {
   QMdiArea* main_view_ = nullptr;
   QMenuBar* admin_menubar_ = nullptr;
   QMenu* user_manager_menu_ = nullptr;
-  QAction* user_manager_add_ = nullptr;
-  QAction* user_manager_edit_ = nullptr;
+  QAction* user_manager_config_ = nullptr;
   QAction* user_manager_monitor_ = nullptr;
 };
