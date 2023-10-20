@@ -1,6 +1,7 @@
 #include <the_client_ui_showcase/compact/compact_mainwindow.hh>
 //
 #include <the_client_ui_showcase/compact/user_manager_add.hh>
+#include <the_client_ui_showcase/compact/user_manager_config.hh>
 #include <the_client_ui_showcase/compact/user_manager_edit.hh>
 #include <the_client_ui_showcase/sample_widget/plot.hh>
 //
@@ -82,8 +83,8 @@ void CompactMainWindow::generateUserManagerMenu() {
   QObject::connect(user_manager_monitor_, &QAction::triggered, this,
                    &CompactMainWindow::onUserManagerMonitorClicked);
 
-  user_manager_menu_->addActions(QList<QAction*>{
-      user_manager_add_, user_manager_edit_, user_manager_monitor_});
+  user_manager_menu_->addActions(
+      QList<QAction*>{user_manager_config_, user_manager_monitor_});
   admin_menubar_->addMenu(user_manager_menu_);
 }
 
