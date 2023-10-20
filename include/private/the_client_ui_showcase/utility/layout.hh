@@ -26,3 +26,5 @@ template <int Value>
 inline int constexpr Column = Value;
 template <int Value>
 inline int constexpr Row = Value;
+template <int Value>
+inline int constexpr Index = Value;
